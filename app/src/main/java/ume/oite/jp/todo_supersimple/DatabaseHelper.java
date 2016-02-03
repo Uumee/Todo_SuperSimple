@@ -12,6 +12,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "sample.db";
     private static final String TABLE = "todoTable";
     private static final int DB_VERSION = 1;
+
+
     private static final String CREATE_TABLE =
             "create table " + TABLE + "("
                     +"id integer primary key autoincrement,"
