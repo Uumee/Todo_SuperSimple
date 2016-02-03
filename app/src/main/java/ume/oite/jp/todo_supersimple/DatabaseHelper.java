@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
+ * DatabaseHelperクラス
+ * ここは、SQLiteOpenHelperを継承したヘルパークラス
+ * データベースの作成や、それに関連したバージョン管理をする場所。
+ * バージョン管理とは、アプリの更新時、データベースの主にテーブルに新たなカラムを作成したい時などに用いるよ。
+ * たぶん、テーブルを削除（Drop）してもっかい作るような処理が想定されてる（onCreate）。
  * Created by Ume on 16/2/2.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {

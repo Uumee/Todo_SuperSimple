@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 /**
  * MainActivity
- * ここがすべての処理のハジマリ
+ * ここがすべての処理のハジマリにしてこのプログラムではオワリ
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +50,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //データベースにデータの挿入を行う
+    /**
+     * db_insertメソッド
+     * データベースのtodoTableへ、nameEditの中身を書き込む。
+     * 書き込むだけなので、その後、createItemメソッドで再表示を行うこと。
+     */
     public void db_insert(){
 
         //書込み用DBとして開く
@@ -117,10 +121,16 @@ public class MainActivity extends AppCompatActivity {
             tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    //データベースを書込み用で開く
                     SQLiteDatabase db = new DatabaseHelper(MainActivity.this).getWritableDatabase();
+                    //idが押下されたものと同じものをtodoTableから削除
                     db.delete("todoTable","id=="+ finalId,null);
+                    //データベース閉じる
                     db.close();
+                    //再表示
                     createItem();
+                    //trueを返却するとここで終わり。
+                    //falseを返却すると、さらに通常タッチまで判定される（と思う）
                     return true;
                 }
             });
@@ -129,26 +139,25 @@ public class MainActivity extends AppCompatActivity {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //データベースを書込み用で開く
                     SQLiteDatabase db = new DatabaseHelper(MainActivity.this).getWritableDatabase();
+                    //書込みデータの作成
                     ContentValues value = new ContentValues();
                     value.put("finish",1);
                     db.update("todoTable", value,"id=="+finalId, null);
+                    //データベースを閉じる
                     db.close();
+                    //再表示
                     createItem();
                 }
             });
 
-
-
+            //itemLayoutにTextViewを追加する。
             itemLayout.addView(tv);
         }
+        //データベースを閉じる
         db.close();
 
     }
-
-
-
-
-
 
 }
